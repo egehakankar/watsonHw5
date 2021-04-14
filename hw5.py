@@ -1,6 +1,6 @@
 # coding=utf-8
 # This is the submission of the project group named WATSON for Homework 5.
-# To run normally: python main.py
+# To run normally: python hw5.py
 
 # Members:
 #           Mehmet Berk Şahin (CONTACT)
