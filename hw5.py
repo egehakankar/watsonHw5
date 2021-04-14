@@ -906,7 +906,7 @@ ui2.setupUi(MainWindow2, "Working Memory", c2, ui.refresh)
 MainWindow1.show()
 MainWindow2.show()
 print("Displaying application UI. (TWO WINDOWS)")
-print("----- PLEASE PRESS REFRESH IF YOU ARE IN SIGNLE STEPPING MODE -----.")
+print("----- PLEASE PRESS REFRESH -----.")
 
 
 
