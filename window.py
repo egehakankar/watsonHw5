@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
         self.content_wrapper = content_wrapper
         self.other_refresh = other_refresh
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(509, 477)
+        MainWindow.resize(800, 800)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -26,13 +26,13 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(10, 10, 491, 401))
+        self.textEdit.setGeometry(QtCore.QRect(10, 10, 750, 750))
         self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName("textEdit")
         self.textEdit.setPlainText(content_wrapper.getContent())
         if other_refresh is not None:
             self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-            self.pushButton.setGeometry(QtCore.QRect(430, 420, 75, 23))
+            self.pushButton.setGeometry(QtCore.QRect(720, 750, 75, 23))
             self.pushButton.setObjectName("pushButton")
 
             def change_text():

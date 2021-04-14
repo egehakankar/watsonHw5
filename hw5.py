@@ -106,13 +106,30 @@ from PyQt5 import QtWidgets
 import window
 import sys
 
+
+## SINGLE STEPPING VARIABLE - TOGGLE FOR SINGLE STEPPING ##
+singleStep = True
+###########################################################
+
+
 class ContentWrapper:
     def __init__(self, content):
         self.content = content
+        self.index = 0
     def getContent(self):
-        return self.content
+        if (self.index < len(self.content)):
+            self.index = self.index + 1
+            out = self.content[0:self.index]
+            out = ' '.join(out)
+            return  out
+        else:
+            out = ' '.join(self.content)
+            return out
     def setContent(self, content):
-        self.content= content
+        self.content = content
+    
+    def addContent(self, item):
+        self.content.append(item)
 
 output = []
 
@@ -729,15 +746,58 @@ def albatross(workMem):
 
 
 #Here is the working memory, you can put any assertion as you want from ZOOKEEPER
-workMem = [
-    "?x has hair",
-    "?x chews cud",
-    "?x has long legs",
-    "?x has a long neck",
-    "?x has tawny color",
-    "?x has dark spots",
-]
+# workMem = [
+#     "?x has hair",
+#     "?x chews cud",
+#     "?x has long legs",
+#     "?x has a long neck",
+#     "?x has tawny color",
+#     "?x has dark spots",
+# ]
+#(Giraffe)
 
+# workMem = [
+#     "Bellus flies",
+#     "Bellus lays eggs",
+#     "Bellus is a good flyer",
+# ]
+# (Albatross)
+# workMem = [
+#     "Parvus gives milk",
+#     "Parvus has hoofs",
+#     "Parvus has black stripes",
+#     "Parvus has white color",
+# ]
+# (Zebra)
+# workMem = [
+#      "Swifty has pointed teeth",
+#      "Swifty has claws",
+#      "Swifty has forward-pointing eyes",
+#      "Swifty has hair",
+#      "Swifty has tawny color",
+#      "Swifty has dark spots",
+               
+#]
+# (Book example, cheetah)
+# workMem = [
+#     "Bellus has feathers",
+#     "Bellus does not fly",
+#     "Bellus has long legs",
+#     "Bellus is black and white",
+#     "Bellus has a long neck",
+# ]
+# 
+# (Ostrich)
+
+workMem = [
+    "Splashy has feathers.",
+    "Splashy lays eggs.",
+    "Splashy swims.",
+    "Splashy does not fly.",
+    "Splashy is black and white.",
+    "Splashy has tawny color.",
+]
+# (Penguin)
 
 #cleans up the WorkMem
 for i in range(len(workMem)):
@@ -824,29 +884,39 @@ if not hypothesis_verified:
         output.append(assertion)
 
 
-#del output[0:4]
-
 sep = "\n"
 rulesString = sep.join(ruleList)
 memString = sep.join(workMem)
 outString = sep.join(output)
-
+splitIndexes = [i for i, j in enumerate(output) if j == '---------']
+dividedOutput = [output[i:j] for i, j in zip([0]+splitIndexes, splitIndexes)] 
+dividedOutput.append(output[splitIndexes[-1]: (len(output) + 1)  ])
 print(outString)
+print(len(dividedOutput))
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow1 = QtWidgets.QMainWindow()
 MainWindow2 = QtWidgets.QMainWindow()
 ui = window.Ui_MainWindow()
 ui2 = window.Ui_MainWindow()
-c1 = ContentWrapper("RULES LIST: \n" + rulesString)
-c2 = ContentWrapper("Working Memory: " + outString)
+c1 = ContentWrapper(["RULES LIST: \n" + rulesString])
+c2 = ContentWrapper(["Working Memory: " ])
 ui.setupUi(MainWindow1, "Rules", c1)
 ui2.setupUi(MainWindow2, "Working Memory", c2, ui.refresh)
 MainWindow1.show()
 MainWindow2.show()
-print("Displaying application UI.")
-# c1.setContent("Test")
-# c2.setContent("Test2")
+print("Displaying application UI. (TWO WINDOWS)")
+print("----- PLEASE PRESS REFRESH IF YOU ARE IN SIGNLE STEPPING MODE -----.")
+
+
+
+if(singleStep):
+    for s in dividedOutput:
+        out = sep.join(s)
+        c2.addContent(out)
+else:
+    c2.addContent(outString)
+        
 
 app.exec_()
 print("UI window closed. Program will now exit.")
